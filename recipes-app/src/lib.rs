@@ -1,5 +1,8 @@
+mod recipes;
+
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
+use recipes::{recipe};
 
 struct Model {
     link: ComponentLink<Self>,
@@ -37,10 +40,17 @@ impl Component for Model {
     }
 
     fn view(&self) -> Html {
+      use recipe::Recipe;
+      let recipe: Recipe = Recipe {
+        name: "Some recipe",
+        ingredients: vec!["Ingredient 1", "Ingredient 2"],
+      };
+
         html! {
             <div>
-            <button onclick=self.link.callback(|_| Msg::AddOne)>{ "+1" }</button>
+            <p><span>{"Updated"}</span></p>
             <button onclick=self.link.callback(|_| Msg::SubOne)>{ "-1" }</button>
+            <button onclick=self.link.callback(|_| Msg::AddOne)>{ "+1" }</button>
                 <p>{ self.value }</p>
             </div>
         }

@@ -12,3 +12,7 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 yew = "0.17"
 wasm-bindgen = "0.2.67"
+
+# [tasks.build]
+# command = "wasm-pack"
+# args = ["build", "--target", "web", "--out-name", "wasm", "--out-dir", "./static"]
