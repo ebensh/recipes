@@ -14,11 +14,13 @@ impl<'a> Recipe<'a> {
     }
   }
 
+  #[allow(dead_code)]
   pub fn name(mut self, name: &'a str) -> Self {
     self.name = name;
     self
   }
 
+  #[allow(dead_code)]
   pub fn ingredients(mut self, ingredients: Vec<&'a str>) -> Self {
     self.ingredients = ingredients;
     self
