@@ -41,14 +41,12 @@ impl Component for Model {
 
     fn view(&self) -> Html {
       use recipe::Recipe;
-      let recipe: Recipe = Recipe {
-        name: "Some recipe",
-        ingredients: vec!["Ingredient 1", "Ingredient 2"],
-      };
+
+      let recipe: Recipe = Recipe::new("Some recipe", vec!["Ingredient 1", "Ingredient 2"]);
 
         html! {
             <div>
-            <p><span>{"Updated"}</span></p>
+            <p><span>{recipe}</span></p>
             <button onclick=self.link.callback(|_| Msg::SubOne)>{ "-1" }</button>
             <button onclick=self.link.callback(|_| Msg::AddOne)>{ "+1" }</button>
                 <p>{ self.value }</p>
