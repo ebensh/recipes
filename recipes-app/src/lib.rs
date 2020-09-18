@@ -2,7 +2,8 @@ mod recipes;
 
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
-use recipes::{recipe};
+use recipes::recipe::Recipe;
+use recipes::simplissime;
 
 struct Model {
     link: ComponentLink<Self>,
@@ -40,9 +41,8 @@ impl Component for Model {
     }
 
     fn view(&self) -> Html {
-      use recipe::Recipe;
-
-      let recipe: Recipe = Recipe::new("Some recipe", vec!["Ingredient 1", "Ingredient 2"]);
+      let recipe: &Recipe<'_> = &simplissime::BULGUR_FILLED_TOMATOES;
+      let recipe: Recipe<'_> = Recipe::new("test", &["ing1", "ing2"]);
 
         html! {
             <div>

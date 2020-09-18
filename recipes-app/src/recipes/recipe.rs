@@ -2,12 +2,13 @@ use std::fmt;
 
 #[derive(Debug)]
 pub struct Recipe<'a> {
-  name: &'a str,
-  ingredients: Vec<&'a str>,
+  pub name: &'a str,
+  pub ingredients: &'a[&'a str],
 }
 
 impl<'a> Recipe<'a> {
-  pub fn new(name: &'a str, ingredients: Vec<&'a str>) -> Self {
+  #[allow(dead_code)]
+  pub fn new(name: &'a str, ingredients: &'a[&'a str]) -> Self {
     Self {
       name: &name,
       ingredients: ingredients,
@@ -21,7 +22,7 @@ impl<'a> Recipe<'a> {
   }
 
   #[allow(dead_code)]
-  pub fn ingredients(mut self, ingredients: Vec<&'a str>) -> Self {
+  pub fn ingredients(mut self, ingredients: &'a[&'a str]) -> Self {
     self.ingredients = ingredients;
     self
   }
@@ -31,7 +32,7 @@ impl<'a> Default for Recipe<'a> {
   fn default() -> Self {
     Self {
       name: "A recipe",
-      ingredients: vec!["Ingredient 1", "Ingredient 2"],
+      ingredients: &["Ingredient 1", "Ingredient 2"],
     }
   }
 }
