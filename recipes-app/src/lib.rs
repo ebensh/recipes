@@ -1,34 +1,54 @@
+#![recursion_limit="256"]
+
 mod recipes;
 
+use std::collections::VecDeque;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use recipes::recipe::Recipe;
 use recipes::simplissime;
 
+#[derive(Default)]
+struct RecipeSlot {
+  label: String,
+  recipe: Option<Recipe>,
+}
+
 struct Model {
     link: ComponentLink<Self>,
-    value: i64,
+    recipes: VecDeque<Recipe>,
+    recipe_slots: [RecipeSlot;7],
 }
 
 enum Msg {
-  AddOne,
-  SubOne,
+  PrevRecipe,
+  NextRecipe,
 }
 
 impl Component for Model {
     type Message = Msg;
     type Properties = ();
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
+        let recipes: Vec<Recipe> = simplissime::RECIPES.into_iter().map(|rs| Recipe::from(*rs)).collect();
         Self {
             link,
-            value: 0,
+            recipes: VecDeque::from(recipes),
+            recipe_slots: [
+              RecipeSlot{ label: "Sunday".to_string(), recipe: None },
+              RecipeSlot{ label: "Monday".to_string(), recipe: None },
+              RecipeSlot{ label: "Tuesday".to_string(), recipe: None },
+              RecipeSlot{ label: "Wednesday".to_string(), recipe: None },
+              RecipeSlot{ label: "Thursday".to_string(), recipe: None },
+              RecipeSlot{ label: "Friday".to_string(), recipe: None },
+              RecipeSlot{ label: "Saturday".to_string(), recipe: None },
+            ],
         }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::AddOne => self.value += 1,
-            Msg::SubOne => self.value -= 1
+            Msg::PrevRecipe => self.recipes.rotate_left(1),
+            Msg::NextRecipe => self.recipes.rotate_right(1),
         }
         true
     }
@@ -41,16 +61,26 @@ impl Component for Model {
     }
 
     fn view(&self) -> Html {
-      let recipe: &Recipe<'_> = &simplissime::BULGUR_FILLED_TOMATOES;
-      let recipe: Recipe<'_> = Recipe::new("test", &["ing1", "ing2"]);
-
-        html! {
-            <div>
-            <p><span>{recipe}</span></p>
-            <button onclick=self.link.callback(|_| Msg::SubOne)>{ "-1" }</button>
-            <button onclick=self.link.callback(|_| Msg::AddOne)>{ "+1" }</button>
-                <p>{ self.value }</p>
+      html! {
+          <>
+            <span>{ "Test "}</span>
+            <div id="header">
+              <span>{ "Test header" }</span>
             </div>
+            <div id="sidebar">
+              <span>{ "Test sidebar" }</span>
+            </div>
+            <div>
+              <p><span>{
+                match self.recipes.front() {
+                  Some(recipe) => recipe.to_string(),
+                  None => "None".to_string(),
+                }
+              }</span></p>
+              <button onclick=self.link.callback(|_| Msg::PrevRecipe)>{ "Previous Recipe" }</button>
+              <button onclick=self.link.callback(|_| Msg::NextRecipe)>{ "Next Recipe" }</button>
+            </div>
+          </>
         }
     }
 }
