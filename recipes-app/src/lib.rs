@@ -63,14 +63,13 @@ impl Component for Model {
     fn view(&self) -> Html {
       html! {
           <>
-            <span>{ "Test "}</span>
             <div id="header">
               <span>{ "Test header" }</span>
             </div>
             <div id="sidebar">
               <span>{ "Test sidebar" }</span>
             </div>
-            <div>
+            <div id="main">
               <p><span>{
                 match self.recipes.front() {
                   Some(recipe) => recipe.to_string(),
@@ -79,6 +78,9 @@ impl Component for Model {
               }</span></p>
               <button onclick=self.link.callback(|_| Msg::PrevRecipe)>{ "Previous Recipe" }</button>
               <button onclick=self.link.callback(|_| Msg::NextRecipe)>{ "Next Recipe" }</button>
+            </div>
+            <div id="footer">
+              <span>{ "Test footer" }</span>
             </div>
           </>
         }
