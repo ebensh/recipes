@@ -6,7 +6,7 @@ use std::collections::VecDeque;
 use wasm_bindgen::prelude::*;
 use yew::prelude::*;
 use recipes::recipe::Recipe;
-use recipes::simplissime;
+use recipes::{simplissime,websites};
 
 #[derive(Default)]
 struct RecipeSlot {
@@ -29,7 +29,7 @@ impl Component for Model {
     type Message = Msg;
     type Properties = ();
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
-        let recipes: Vec<Recipe> = simplissime::RECIPES.into_iter().map(|rs| Recipe::from(*rs)).collect();
+        let recipes: Vec<Recipe> = websites::RECIPES.into_iter().map(|rs| Recipe::from(*rs)).collect();
         Self {
             link,
             recipes: VecDeque::from(recipes),
