@@ -3,7 +3,12 @@
   "collaborators": [
     "Evan B <ebensh@gmail.com>"
   ],
+  "description": "A website for organizing recipes and planning meals.",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ebensh/recipes"
+  },
   "files": [
     "wasm_bg.wasm",
     "wasm.js",

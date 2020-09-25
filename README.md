@@ -6,6 +6,7 @@ This is a repository for displaying recipes using Rust and Yew.
 
 - Language: [Rust](https://www.rust-lang.org/learn)
 - Web framework: [Yew](https://yew.rs/)
+- Web library: web-sys [context](https://yew.rs/docs/en/getting-started/choose-web-library/)
 - Wasm Build Tool: [wasm-pack](https://yew.rs/docs/en/getting-started/project-setup/#wasm-packhttpsrustwasmgithubiodocswasm-pack)
   - `cargo install wasm-pack`
 
